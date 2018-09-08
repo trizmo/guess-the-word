@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1 class="text-center">Guess The Word</h1> 
+
+  <hr>
+
+  <div class="container" id="game-box">
+
+
+    <div class="livesDisplay">Lives</div>
+    <div class="livesDisplay" id="livesDisplay">0</div>
+
+    <div class="wins">Wins</div>
+    <div class="wins" id="winsDisplay">0</div>
+
+    <div class="loss">Losses</div>
+    <div class="loss" id="lossDisplay">0</div>
+
+
+    <div class="noLettersDisp text-center" id="noLettersDisp">START</div>
+    <div class="mysteryWord jumbotron text-center">
+
+        <span id="correct">You Guessed The Word!</span>
+        <br>
+        <span id="mysteryWordDisplay">give up?</span>
+
+    </div>
+
+
+    <div class="guessesDisplay text-center">Correct Guesses:</div>
+    <div class="guessesDisplay text-center" id="correctGuesses">x</div>
+
+    <br><br>
+
+    <div class="guessesDisplay text-center">All Guesses:</div>
+    <div class="guessesDisplay text-center" id="allGuess">x</div>
+
+
+  </div>
+
+
+
+  <script rel="javascript/script" src="script.js"></script>
+
+</body>
+
+</html>
