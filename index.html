@@ -2,9 +2,11 @@
 <html lang="en">
 
 <head>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,31 +14,47 @@
 </head>
 
 <body>
-  <h1 class="text-center">Guess The Word</h1> 
+  <h1 class="text-center">Guess The Word</h1>
 
   <hr>
 
   <div class="container" id="game-box">
 
+    <div class="row">
 
-    <div class="livesDisplay">Lives</div>
-    <div class="livesDisplay" id="livesDisplay">0</div>
+      <div class="col-4">
+        <div class="wins">SCOREs</div>
+        <div class="wins" id="winsDisplay">0</div>
+      </div>
 
-    <div class="wins">Wins</div>
-    <div class="wins" id="winsDisplay">0</div>
+      <div class="col-4">
+        <div class="livesDisplay">Lives</div>
+        <div class="livesDisplay" id="livesDisplay">0</div>
+      </div>
 
-    <div class="loss">Losses</div>
-    <div class="loss" id="lossDisplay">0</div>
+      <div class="col-4">
+        <div class="loss">Losses</div>
+        <div class="loss" id="lossDisplay">0</div>
+      </div>
+
+    </div>
 
 
     <div class="noLettersDisp text-center" id="noLettersDisp">START</div>
     <div class="mysteryWord jumbotron text-center">
 
-        <span id="correct">You Guessed The Word!</span>
-        <br>
-        <span id="mysteryWordDisplay">give up?</span>
+      <span id="correct">You Guessed The Word!</span>
+      <br>
+      <span id="mysteryWordDisplay">give up?</span>
 
     </div>
+
+<!-- <div class="text-center">
+  <input type="text" id="userGuess" placeholder="Guess a Letter!">
+<button type="submit" id="submit" class="primary btn">Submit</button>
+
+</div> -->
+
 
 
     <div class="guessesDisplay text-center">Correct Guesses:</div>
@@ -52,7 +70,7 @@
 
 
 
-  <script rel="javascript/script" src="script.js"></script>
+  <script rel="javascript/script" src="script2.js"></script>
 
 </body>
 

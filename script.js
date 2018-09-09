@@ -59,12 +59,12 @@ document.getElementById("mysteryWordDisplay").innerHTML = mysteryWord.join("");
 //   })
 // }
 
-function livesChecker(lives){
-  if(lives === 0){
+
+
+function livesChecker(lives) {
+  if (lives === 0) {
     alert("END GAME!");
-
   }
-
 }
 
 
@@ -80,12 +80,8 @@ function checker(userGuess) {
     } else {
       lives = lives - 1;
     }
-
   }
-
 }
-
-
 
 
 
@@ -112,6 +108,10 @@ document.onkeyup = function (event) {
   }
 
 }
+
+
+
+
 
 
 
