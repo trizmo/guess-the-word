@@ -72,12 +72,14 @@ var placeHolder = [];
 for (i = 0; i < mysteryWord.length; i++) {
   placeHolder.push("_")
 }
+
 function checker(userGuess) {
 
   for (i = 0; i < placeHolder.length; i++) {
     if (userGuess === mysteryWord[i]) {
       placeHolder[i] = userGuess;
     } else {
+      allGuess[i]= userGuess
       lives = lives - 1;
     }
   }
