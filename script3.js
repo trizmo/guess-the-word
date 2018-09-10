@@ -9,6 +9,7 @@ $(document).ready(function () {
 
   var allGuess = [];
   var score = 0;
+  var roundCounter = 0;
   // var userGuess
   // var correctGuess = [];
   // var lives = mysteryWord.length + 3;
@@ -83,10 +84,10 @@ $(document).ready(function () {
 
   function gameOver() {
     if (gameStatus === false) {
-      var tryAgain = confirm("Try Again?")
+      var tryAgain = confirm("GAME OVER... Try Again?")
       if (tryAgain) {
-        location.reload();
       } else {
+        location.assign("thankyou.html");
         console.log("## USER ENDED GAME ##");
       }
     }
@@ -111,11 +112,12 @@ $(document).ready(function () {
 
   function nextRound() {
     scoreKeep();
-    alert("you completed 1 round");
+    alert("ROUND: " + roundCounter);
     var next_round = confirm("READY?");
     if (next_round) {
       round();
     } else {
+      gameStatus = false
       gameOver();
     }
 
@@ -130,8 +132,9 @@ $(document).ready(function () {
     for (i = 0; i < mysteryWord.length; i++) {
       placeHolder.push("_")
     }
-    // computer picking a word
     console.log("mystery word is: " + mysteryWord);             // testing purpose
+    // computer picking a word
+    
 
     // ### SETTING DISPLAY ###
     // #######################
@@ -140,8 +143,8 @@ $(document).ready(function () {
     $("#noLettersDisp").html("This word has " + mysteryWord.length + " letters.");
     $("#correct").hide();
     $("#mysteryWordDisplay").hide();
-    // $("#mysteryWordDisplay").html(mysteryWord.join(""));
-    $("#mysteryWordDisplay").html(placeHolder);
+    $("#mysteryWordDisplay").html(mysteryWord.join(""));
+    // $("#mysteryWordDisplay").html(placeHolder);
 
 
     // var timer = setTimeout(function () { alert("times up!"); gameStatus = false; console.log("countDown triggered gameStatus: " + gameStatus); gameOver(); }, 300000);
@@ -162,6 +165,8 @@ $(document).ready(function () {
       for (i = 0; i < placeHolder.length; i++) {
         if (userGuess === mysteryWord[i]) {
           placeHolder[i] = userGuess;
+          
+          
         } else {
           // lives = lives - 1;
         }
@@ -170,11 +175,12 @@ $(document).ready(function () {
       // checks to see if correct
       var guess1 = placeHolder.join("");                        //converts array back to string
       var word1 = mysteryWord.join("");                         // converts array back to srtring
-      $("#correctGuesses").html(placeHolder);
+      
       // updates html #correctGuesses
       console.log("userGuess is: [ " + userGuess + " ]");       // for logging purposes
       console.log("placeHolder is: " + placeHolder);            // for testing purposes
       console.log("current guess: " + guess1 + " " + word1)     // for testing purpose 
+      $("#correctGuesses").html(placeHolder);
       if (guess1 === word1) {
         $("#correct").show();
         $("#mysteryWordDisplay").show();
@@ -182,13 +188,14 @@ $(document).ready(function () {
         score = score + 10;
         console.log("score is: " + score);
         $("#scoreDisp").html(score);
+        
         // console.log("Player name is: " + player + ". Current Score: " + score)
         // clearTimeout(timer);
+        roundCounter++
         nextRound();
       }
     })
   }
-
 
 
 
@@ -204,6 +211,10 @@ $(document).ready(function () {
 
 
 
+
+// $(document)ready(function() {
+//   $("#playerInfoDisp").html(score)
+// });
 
 
 
