@@ -15,33 +15,40 @@ $(document).ready(function () {
   var roundCounter = 1;
   var lives = 3;
   var roundWin = false;
+ 
 
-  var guess1;
-  var word1;
 
-  
-//timer settings
-  var timer = 11;
-  setTimeout(countDown, 10000)
 
-  function countDown() {
-    timer--;
-    if (timer > 0) {
-      setTimeout(countDown, 1000);
-    } else if (timer === 0) {
-    console.log("Time Is up!!")
-    }
+  var highscore = 0;
 
-    $("#timeDisplay").html(timer);
-    console.log(timer);
-  }
+  // localStorage.setItem(highscore, 0);
+
+
+  // timer settings
+  // var timer = 11;
+  // setTimeout(countDown, 0)
+
+  // function countDown() {
+  //   timer--;
+  //   if (timer > 0) {
+  //     setTimeout(countDown, 1000);
+  //   } else if (timer === 0) {
+  //   console.log("Time Is up!!")
+  //   } else if (roundWin) {
+  //     clearTimeout(countDown)
+  //     console.log(roundWin)
+  // }
+
+  //   $("#timeDisplay").html(timer);
+  //   console.log(timer);
+  // }
 
 
 
   function playerInfo() {
-    playerName = prompt("Enter Name");
-    $("#playerName").html(playerName);
-    if (playerName === false) {
+    if (playerName = prompt("Enter Name")) {
+      $("#playerName").html(playerName);
+    } else {
       gameOver();
     }
   }
@@ -53,8 +60,7 @@ $(document).ready(function () {
 
   function gameOver() {
     if (gameStatus === false) {
-      var tryAgain = confirm("GAME OVER... Try Again?")
-      if (tryAgain) {
+      if (confirm("GAME OVER... Try Again?")) {
         startGame();
       } else {
         // location.assign("thankyou.html");
@@ -79,17 +85,15 @@ $(document).ready(function () {
 
 
   function nextRound() {
-
-    score = score + 10 + timer;
+    score = score + 10;
+    // score = score + 10 + timer;
+    // console.log(timer)
     console.log("Player name is: " + playerName + ". Current Score: " + score)
     $("#playerScore").html(score);
-
     $("#scoreDisp").html(score);
     $("#roundDisp").html(roundCounter)
-    console.log("ROUND: " + roundCounter);
+    console.log("CURRENT ROUND: " + roundCounter);
     scoreKeep();
-
-
     setTimeout(function () {      // to keep the modal from executing before everything else
       if (confirm("READY?")) {
         round();
@@ -97,24 +101,27 @@ $(document).ready(function () {
         gameStatus = false
         gameOver();
       }
-    }, 0.1)
+    }, 350)
   }
 
 
   function round() {  // start of each round
+    // reset at start of round
+    var guess1 = "x";
+    var word1 = "x";
     roundWin = false;
     allGuess = [];
-    placeHolder = "x";
+    var placeHolder = "x";
     $("#correctGuesses").html(placeHolder);
-    $("#allGuess").html(allGuess)
+    $("#allGuess").html(allGuess);
     $("#correct").html("");
 
     // computer picking a word
     var wordList = ["bearlephant", "incorrect", "magic", "console", "javascript", "five"];
     var rand = Math.floor(Math.random() * wordList.length);
-    mysteryWord = wordList[5].split("");
+    mysteryWord = wordList[rand].split("");
     $("#noLettersDisp").html("This word has " + mysteryWord.length + " letters.");
-    var placeHolder = [];
+    placeHolder = [];
     for (i = 0; i < mysteryWord.length; i++) {
       placeHolder.push("_")
     }
@@ -125,9 +132,9 @@ $(document).ready(function () {
 
 
     // TIMER STARTS HERE
-    countDown()
+    // countDown()
     console.log("Timer TESTING! gameStatus: " + gameStatus);    // testing purpose
-    
+
 
 
 
@@ -157,20 +164,20 @@ $(document).ready(function () {
       console.log("current guess: " + guess1 + " " + word1)
       $("#correctGuesses").html(placeHolder);
 
-      
+
       if (guess1 === word1) {
         console.log("guess1: " + guess1 + " word1: " + word1)
         roundWin = true;
-        
-        console.log("clearTimeout: " + clearTimeout(countDown));
+        // clearTimeout(countDown);
+        console.log("Timer TESTING! gameStatus: " + gameStatus);    // testing purpose
+        // console.log("clearTimeout: " + clearTimeout(countDown));
         $("#correct").html("You Guessed Right!");
         $("#mysteryWordDisplay").show();
         console.log("END OF ROUND " + roundCounter);
-
-
-
         roundCounter++
         nextRound();
+
+        
       }
     })
   }
