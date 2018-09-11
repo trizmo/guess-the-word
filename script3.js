@@ -1,84 +1,53 @@
+$("#correct").hide();
+
+
 
 $(document).ready(function () {
-
-  // ### PREPPING FOR GAME ###
-  // #########################
-
-  console.log("GAME START")
-  var gameStatus = true; // Indicates 
-
-  var allGuess = [];
-  var score = 0;
-  var roundCounter = 0;
-  // var userGuess
-  // var correctGuess = [];
-  // var lives = mysteryWord.length + 3;
-
-
-
 
   // ### FUNCTIONS AND VARIABLES NEEDED FOR GAMEPLAY ###
   // ###################################################
 
+  console.log("GAME START")
+  var gameStatus = true; // Indicates if game is in play or not
+  var playerName = "";
+  var allGuess = [];
+  var score = 0;
+  var roundCounter = 1;
+  var lives = 3;
+  var roundWin = false;
 
+  var guess1;
+  var word1;
 
-  // function wordPicker() {
-  //   var wordList = ["bearlephant", "incorrect", "magic", "console", "javascript", "five"];
-  //   var rand = Math.floor(Math.random() * wordList.length);
-  //   // computer picking a word
-  //   var mysteryWord = wordList[rand].split("");
+  
+//timer settings
+  var timer = 11;
+  setTimeout(countDown, 10000)
 
-  // }
-
-
-  function checker(userGuess) {  // checks to see if userGuess is same as a letter in the mysterword (placeHolder[i]); if it's correct placeHoler ("_") will be replaced by userGuess (key)
-    for (i = 0; i < placeHolder.length; i++) {
-      if (userGuess === mysteryWord[i]) {
-        placeHolder[i] = userGuess;
-      } else {
-        // lives = lives - 1;
-      }
+  function countDown() {
+    timer--;
+    if (timer > 0) {
+      setTimeout(countDown, 1000);
+    } else if (timer === 0) {
+    console.log("Time Is up!!")
     }
-  }
 
-  function wrongChecker(userGuess) {  // checks to see if userGuess is same as a letter in the mysterword (placeHolder[i]); if it's correct placeHoler ("_") will be replaced by userGuess (key)
-    for (i = 0; i < placeHolder.length; i++) {
-      if (mysteryWord.includes(userGuess) || allGuess.includes(userGuess)) {
-
-      } else {
-        allGuess.push(userGuess);
-        // lives = lives - 1;
-      }
-    }
-  }
-
-  function correctGuesses(userGuess) {  // updates the html
-  }
-
-  function allGuesses(userGuess) {
-    $("#allGuess").html(allGuess)
+    $("#timeDisplay").html(timer);
+    console.log(timer);
   }
 
 
-
-  // function countDown() {
-  //   var timer = setTimeout(function () { alert("times up!"); gameStatus = false; console.log("countDown triggered gameStatus: " + gameStatus); gameOver(); }, 30000);
-  //   timer;
-  //   console.log("Timer Started! gameStatus: " + gameStatus);
-
-
-  // }
 
   function playerInfo() {
-    var player = prompt("Enter Name");
-    var score = 0;
-    if (player === false) {
+    playerName = prompt("Enter Name");
+    $("#playerName").html(playerName);
+    if (playerName === false) {
       gameOver();
     }
   }
 
   function scoreKeep() {
-    console.log(score);
+    console.log("scoreKeep is: " + score);
   }
 
 
@@ -86,111 +55,120 @@ $(document).ready(function () {
     if (gameStatus === false) {
       var tryAgain = confirm("GAME OVER... Try Again?")
       if (tryAgain) {
+        startGame();
       } else {
-        location.assign("thankyou.html");
+        // location.assign("thankyou.html");
         console.log("## USER ENDED GAME ##");
       }
     }
   }
 
 
-
   function startGame() {
-
-    var start = confirm("START");
-    if (start === false) {
+    lives = 3;
+    score = 0;
+    if (confirm("START")) {
+      round();
+    } else {
       console.log("END GAME")
       gameStatus = false;
       console.log("startGame triggered gameStatus of: " + gameStatus);
       gameOver();
-    } else {
-      round();
     }
   }
-
 
 
   function nextRound() {
-    scoreKeep();
-    alert("ROUND: " + roundCounter);
-    var next_round = confirm("READY?");
-    if (next_round) {
-      round();
-    } else {
-      gameStatus = false
-      gameOver();
-    }
 
+    score = score + 10 + timer;
+    console.log("Player name is: " + playerName + ". Current Score: " + score)
+    $("#playerScore").html(score);
+
+    $("#scoreDisp").html(score);
+    $("#roundDisp").html(roundCounter)
+    console.log("ROUND: " + roundCounter);
+    scoreKeep();
+
+
+    setTimeout(function () {      // to keep the modal from executing before everything else
+      if (confirm("READY?")) {
+        round();
+      } else {
+        gameStatus = false
+        gameOver();
+      }
+    }, 0.1)
   }
 
 
-  function round() {
+  function round() {  // start of each round
+    roundWin = false;
+    allGuess = [];
+    placeHolder = "x";
+    $("#correctGuesses").html(placeHolder);
+    $("#allGuess").html(allGuess)
+    $("#correct").html("");
+
+    // computer picking a word
     var wordList = ["bearlephant", "incorrect", "magic", "console", "javascript", "five"];
     var rand = Math.floor(Math.random() * wordList.length);
-    mysteryWord = wordList[rand].split("");
+    mysteryWord = wordList[5].split("");
+    $("#noLettersDisp").html("This word has " + mysteryWord.length + " letters.");
     var placeHolder = [];
     for (i = 0; i < mysteryWord.length; i++) {
       placeHolder.push("_")
     }
-    console.log("mystery word is: " + mysteryWord);             // testing purpose
-    // computer picking a word
+    console.log("mystery word is: " + mysteryWord);
+    $("#mysteryWordDisplay").show();
+    $("#mysteryWordDisplay").html(mysteryWord.join(""));
+
+
+
+    // TIMER STARTS HERE
+    countDown()
+    console.log("Timer TESTING! gameStatus: " + gameStatus);    // testing purpose
     
 
-    // ### SETTING DISPLAY ###
-    // #######################
-
-    // document.getElementById("livesDisplay").innerHTML = lives;
-    $("#noLettersDisp").html("This word has " + mysteryWord.length + " letters.");
-    $("#correct").hide();
-    $("#mysteryWordDisplay").hide();
-    $("#mysteryWordDisplay").html(mysteryWord.join(""));
-    // $("#mysteryWordDisplay").html(placeHolder);
 
 
-    // var timer = setTimeout(function () { alert("times up!"); gameStatus = false; console.log("countDown triggered gameStatus: " + gameStatus); gameOver(); }, 300000);
-    // timer;                                                      // starts timer
-    console.log("Timer OFF! gameStatus: " + gameStatus);    // testing purpose
-    // countDown();
-    $(document).on("keyup", function (event) {                  // when user presses a button...
+    // user guessing functionality
+    $(document).on("keyup", function (event) {
       var userGuess = event.key;
-      // wrongChecker(userGuess);                               // userGuess is what the button the user pressed
 
+      // checking to see if correct or wrong
       if (mysteryWord.includes(userGuess) || allGuess.includes(userGuess)) {
       } else {
         allGuess.push(userGuess);
-        // lives = lives - 1;
+        $("#allGuess").html(allGuess)
       }
 
 
       for (i = 0; i < placeHolder.length; i++) {
         if (userGuess === mysteryWord[i]) {
           placeHolder[i] = userGuess;
-          
-          
-        } else {
-          // lives = lives - 1;
         }
       }
 
-      // checks to see if correct
-      var guess1 = placeHolder.join("");                        //converts array back to string
-      var word1 = mysteryWord.join("");                         // converts array back to srtring
-      
-      // updates html #correctGuesses
-      console.log("userGuess is: [ " + userGuess + " ]");       // for logging purposes
-      console.log("placeHolder is: " + placeHolder);            // for testing purposes
-      console.log("current guess: " + guess1 + " " + word1)     // for testing purpose 
+
+      guess1 = placeHolder.join("");
+      word1 = mysteryWord.join("");
+      console.log("userGuess is: [ " + userGuess + " ]");
+      console.log("placeHolder is: " + placeHolder);
+      console.log("current guess: " + guess1 + " " + word1)
       $("#correctGuesses").html(placeHolder);
+
+      
       if (guess1 === word1) {
-        $("#correct").show();
-        $("#mysteryWordDisplay").show();
-        console.log("GAME END");
-        score = score + 10;
-        console.log("score is: " + score);
-        $("#scoreDisp").html(score);
+        console.log("guess1: " + guess1 + " word1: " + word1)
+        roundWin = true;
         
-        // console.log("Player name is: " + player + ". Current Score: " + score)
-        // clearTimeout(timer);
+        console.log("clearTimeout: " + clearTimeout(countDown));
+        $("#correct").html("You Guessed Right!");
+        $("#mysteryWordDisplay").show();
+        console.log("END OF ROUND " + roundCounter);
+
+
+
         roundCounter++
         nextRound();
       }
@@ -204,17 +182,13 @@ $(document).ready(function () {
   // ### START OF GAME ###
   // #####################
 
-  // playerInfo();
+  playerInfo(playerName);
   startGame();
 
 });
 
 
 
-
-// $(document)ready(function() {
-//   $("#playerInfoDisp").html(score)
-// });
 
 
 
@@ -227,22 +201,3 @@ $(document).ready(function () {
 
 
 
-
-  // $(document).on("keyup", function (event) {
-  //   var userGuess = event.key;
-  //   allGuess.push(userGuess);
-  //   correctGuesses();
-  //   console.log("userGuess is: [ " + userGuess + " ]");
-  //   console.log(placeHolder);
-  //   checker(userGuess);
-  //   $("#correctGuesses").html = placeHolder;
-  //   var guess1 = placeHolder.join("");
-  //   var word1 = mysteryWord.join("");
-  //   if (guess1 == word1) {
-  //     $("#correct").show();
-  //     $("#mysteryWordDisplay").show();
-  //     console.log("GAME END");
-  //   }
-  //   correctGuesses();
-  //   allGuesses();
-  // })

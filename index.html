@@ -4,6 +4,7 @@
 <head>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
+  <script rel="javascript/script" src="script3.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
@@ -28,13 +29,13 @@
       </div>
 
       <div class="col-4">
-        <div class="livesDisplay">Lives</div>
-        <div class="livesDisplay" id="livesDisplay">0</div>
+        <div class="timeDisplay">Time Left:</div>
+        <div class="timeDisplay" id="timeDisplay">0</div>
       </div>
 
       <div class="col-4">
-        <div class="loss">Losses</div>
-        <div class="loss" id="lossDisplay">0</div>
+        <div class="roundNo">Round</div>
+        <div class="loss" id="roundDisp">1</div>
       </div>
 
     </div>
@@ -43,13 +44,13 @@
     <div class="noLettersDisp text-center" id="noLettersDisp">START</div>
     <div class="mysteryWord jumbotron text-center">
 
-      <span id="correct">You Guessed The Word!</span>
+      <span id="correct"></span>
       <br>
-      <span id="mysteryWordDisplay correctGuesses"></span>
+      <span id="mysteryWordDisplay correctGuesses placeholder"></span>
 
     </div>
 
-<!-- <div class="text-center">
+    <!-- <div class="text-center">
   <input type="text" id="userGuess" placeholder="Guess a Letter!">
 <button type="submit" id="submit" class="primary btn">Submit</button>
 
@@ -68,9 +69,22 @@
 
   </div>
 
+  <div class="container" id="playerInfo">
+    <p>Player Name</p>
+    <p id="playerName">Waiting for Player</p>
+    <p>Player Score</p>
+    <p id="playerScore">0</p>
+
+  </div>
 
 
-  <script rel="javascript/script" src="script3.js"></script>
+
+
+  </div>
+
+
+
+
 
 </body>
 
