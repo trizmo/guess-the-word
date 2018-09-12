@@ -25,23 +25,23 @@ $(document).ready(function () {
 
 
   // timer settings
-  // var timer = 11;
-  // setTimeout(countDown, 0)
-
-  // function countDown() {
-  //   timer--;
-  //   if (timer > 0) {
-  //     setTimeout(countDown, 1000);
-  //   } else if (timer === 0) {
+  // else if (timer === 0) {
   //   console.log("Time Is up!!")
-  //   } else if (roundWin) {
-  //     clearTimeout(countDown)
-  //     console.log(roundWin)
-  // }
+  //   gameOver();
+  //   }
 
-  //   $("#timeDisplay").html(timer);
-  //   console.log(timer);
-  // }
+
+  var timer = 11;
+  
+
+  function countDown() {
+    timer--;
+    if (timer > 0) {
+      setTimeout(countDown, 1000);
+    } 
+    $("#timeDisplay").html(timer);
+    console.log(timer);
+  }
 
 
 
@@ -94,24 +94,23 @@ $(document).ready(function () {
     $("#roundDisp").html(roundCounter)
     console.log("CURRENT ROUND: " + roundCounter);
     scoreKeep();
-    setTimeout(function () {      // to keep the modal from executing before everything else
+    // setTimeout(function () {      // to keep the modal from executing before everything else
       if (confirm("READY?")) {
         round();
       } else {
         gameStatus = false
         gameOver();
       }
-    }, 350)
+    // }, 500)
   }
 
 
   function round() {  // start of each round
     // reset at start of round
-    var guess1 = "x";
-    var word1 = "x";
+    var userGuess;
     roundWin = false;
     allGuess = [];
-    var placeHolder = "x";
+    placeHolder = [];
     $("#correctGuesses").html(placeHolder);
     $("#allGuess").html(allGuess);
     $("#correct").html("");
@@ -121,7 +120,7 @@ $(document).ready(function () {
     var rand = Math.floor(Math.random() * wordList.length);
     mysteryWord = wordList[rand].split("");
     $("#noLettersDisp").html("This word has " + mysteryWord.length + " letters.");
-    placeHolder = [];
+    
     for (i = 0; i < mysteryWord.length; i++) {
       placeHolder.push("_")
     }
@@ -132,7 +131,7 @@ $(document).ready(function () {
 
 
     // TIMER STARTS HERE
-    // countDown()
+    setTimeout(countDown, 0)
     console.log("Timer TESTING! gameStatus: " + gameStatus);    // testing purpose
 
 
@@ -140,7 +139,7 @@ $(document).ready(function () {
 
     // user guessing functionality
     $(document).on("keyup", function (event) {
-      var userGuess = event.key;
+      userGuess = event.key;
 
       // checking to see if correct or wrong
       if (mysteryWord.includes(userGuess) || allGuess.includes(userGuess)) {
@@ -168,9 +167,11 @@ $(document).ready(function () {
       if (guess1 === word1) {
         console.log("guess1: " + guess1 + " word1: " + word1)
         roundWin = true;
-        // clearTimeout(countDown);
+
+        clearTimeout(countDown);
         console.log("Timer TESTING! gameStatus: " + gameStatus);    // testing purpose
-        // console.log("clearTimeout: " + clearTimeout(countDown));
+        console.log("clearTimeout: " + clearTimeout(countDown));
+        
         $("#correct").html("You Guessed Right!");
         $("#mysteryWordDisplay").show();
         console.log("END OF ROUND " + roundCounter);
